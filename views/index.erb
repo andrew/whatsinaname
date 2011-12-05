@@ -18,6 +18,12 @@
     <meta property="og:site_name" content=""/>
     <meta property="fb:app_id" content="<%= @app.id %>" />
     <script>
+      <% if settings.environment == :production %>
+      if(self == top){
+        window.location = 'https://apps.facebook.com/inaname/'
+      }
+      <% end %>
+
       function popup(pageURL, title,w,h) {
         var left = (screen.width/2)-(w/2);
         var top = (screen.height/2)-(h/2);
