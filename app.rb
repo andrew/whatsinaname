@@ -69,7 +69,7 @@ get "/" do
 
   @friends = []
   
-  while @friends.length < 5 && rands.any? do
+  while @friends.length < 4 && rands.any? do
     f = rands.pop
     @friends << f if f && f.name.length < 17 && Anagram.two_word_anagrams_of(f.name).any?
   end
