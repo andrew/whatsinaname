@@ -1,5 +1,6 @@
 require "sinatra"
 require "mogli"
+require './anagram'
 
 enable :sessions
 set :raise_errors, false
@@ -59,18 +60,19 @@ get "/" do
   @client = Mogli::Client.new(session[:at])
 
   # limit queries to 15 results
-  @client.default_params[:limit] = 15
+  @client.default_params[:limit] = 200
 
   @app  = Mogli::Application.find(ENV["FACEBOOK_APP_ID"], @client)
   @user = Mogli::User.find("me", @client)
 
-  # access friends, photos and likes directly through the user instance
-  @friends = @user.friends[0, 4]
-  @photos  = @user.photos[0, 16]
-  @likes   = @user.likes[0, 4]
+  rands = @user.friends.sort{|a,b| rand <=> rand }
 
-  # for other data you can always run fql
-  @friends_using_app = @client.fql_query("SELECT uid, name, is_app_user, pic_square FROM user WHERE uid in (SELECT uid2 FROM friend WHERE uid1 = me()) AND is_app_user = 1")
+  @friends = []
+  
+  while @friends.length < 5 && rands.any? do
+    f = rands.pop
+    @friends << f if f && f.name.length < 17 && Anagram.two_word_anagrams_of(f.name).any?
+  end
 
   erb :index
 end
