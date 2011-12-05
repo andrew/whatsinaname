@@ -54,7 +54,8 @@
     <% the_friend = @friends[rand(@friends.length)] %>
 
         <% @friends.each do |friend| %>
-            <a class='friend' href="#" onclick="alert('<%= friend == the_friend ? "That's right, it's #{the_friend.name}" : "That's wrong it's #{the_friend.name}" %>');window.location.reload()">
+          <% answer = (friend == the_friend) ? "Thats right, its #{the_friend.name}" : "Thats wrong its #{the_friend.name}" %>
+            <a class='friend' href="" onclick="alert('<%= answer %>');window.location.reload();return false;">
               <img src="https://graph.facebook.com/<%= friend.id %>/picture?type=large" alt="<%= friend.name %>">
             </a>
         <% end %>
