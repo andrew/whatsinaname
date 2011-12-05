@@ -89,7 +89,9 @@ module Anagram
       words_by_anagram_class[ac1].each do |word1|
         words_by_anagram_class[ac2].each do |word2|
           if word2 <= word1
-            result << word1 + ' ' + word2
+            add = word1 + ' ' + word2
+            result << add if add != string
+            
             return result.uniq if result.uniq.length == stoppage
           end
         end
