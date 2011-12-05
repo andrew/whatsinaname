@@ -44,13 +44,17 @@
     <style type="text/css" media="screen">
       h1{text-transform:capitalize;}
       body{text-align:center;}
+      .friend{background:black;display:table-cell;vertical-align:middle;float:left; height:180px; overflow:hidden;}
+      .friend img{display:inline-block;vertical-align: middle;}
+      body{width:760px;padding:0;margin:20px auto 0;font-family:helvetica, arial, san-serif;}
+      h1{clear:both;padding-top:20px;}
     </style>
   </head>
   <body>
     <% the_friend = @friends[rand(@friends.length)] %>
 
         <% @friends.each do |friend| %>
-            <a href="#" onclick="alert('<%= friend == the_friend ? "winner (#{the_friend.name})" : "loser (it was #{the_friend.name})" %>');window.location.reload()">
+            <a class='friend' href="#" onclick="alert('<%= friend == the_friend ? "winner (#{the_friend.name})" : "loser (it was #{the_friend.name})" %>');window.location.reload()">
               <img src="https://graph.facebook.com/<%= friend.id %>/picture?type=large" alt="<%= friend.name %>">
             </a>
         <% end %>
