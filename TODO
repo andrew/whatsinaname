@@ -6,7 +6,7 @@ sharing
 
 design
 
-don't show original names!
+don't use users with no picture
 
 caching
 store users in db
